@@ -1,7 +1,7 @@
 HCI 2 Group 5 Assignment 1
 =============
 
-A Eclipse Android project for HCI 2 Group 5 Assignment 1
+An Eclipse Android project for HCI 2 Group 5 Assignment 1
 
 SDK used:
 -------
