@@ -15,7 +15,6 @@ An Eclipse Android project for HCI 2 Group 5 Assignment 1
 1. Get a local copy
  - `cd [you eclipse workspace or any directory you favored]`
  - `git clone https://github.com/umhan35/hci2group5-a1.git` (enter your username and password)
-
 2. Import to Eclipse
  - `File` -> `Import...` -> `General` -> `Existing Projects into Workspace`
      - Note: **don't** select `Existing Android Code into Workspace`
