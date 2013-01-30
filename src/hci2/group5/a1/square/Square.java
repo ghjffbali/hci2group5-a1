@@ -7,18 +7,24 @@ import android.graphics.Rect;
 
 public class Square {
 
-	private static Paint painter;
+	private static int SQUARE_COLOR = Color.DKGRAY;
+	private static int ATTENTION_COLOR = Color.WHITE;
+	
+	// painter
+	public static Paint painter;
 	static {
 		painter = new Paint();
-		painter.setColor(Color.WHITE);
+		painter.setColor(SQUARE_COLOR);
 		painter.setAntiAlias(true);
 	}
 	
+	// the shape
 	private Rect rect;
-	
 	private int centerX, centerY;
-	
-	private boolean visible;
+
+	// hit
+	private boolean isHit;
+	private long hitTime;
 	
 	public Square(int centerX, int centerY, int length) {
 		this.centerX = centerX;
@@ -26,7 +32,7 @@ public class Square {
 		
 		initRect(centerX, centerY, length);
 		
-		setVisible(true);
+		isHit = false;
 	}
 
 	private void initRect(int centerX, int centerY, int length) {
@@ -40,18 +46,27 @@ public class Square {
 		rect = new Rect(leftX, topY, rightX, bottomY);
 	}
 	
-	public Rect getRect() {
-		return rect;
-	}
-	
-	public void setVisible(boolean b) { visible = b; }
+	public int getCenterX() { return centerX; }
+	public int getCenterY() { return centerY; }
 
-	public boolean isVisible() { return visible; }
+	public void setHit(boolean isHit) {
+		this.isHit = isHit;
+		hitTime = System.currentTimeMillis();
+	}
+	public boolean isHit() { return isHit; }
+	
+	public long hitTimeDiff(Square s2) {
+		return this.hitTime - s2.hitTime;
+	}
 
 	public void draw(Canvas canvas) {
-		if (isVisible()) {
-			canvas.drawRect(rect, painter);
-		}
+		canvas.drawRect(rect, painter);
+	}
+
+	public void drawAttention(Canvas canvas) {
+		painter.setColor(ATTENTION_COLOR);
+		canvas.drawRect(rect, painter);
+		painter.setColor(SQUARE_COLOR);
 	}
 
 	public boolean contains(float x, float y) {
@@ -59,13 +74,8 @@ public class Square {
 	}
 	
 	public String toString() {
-        StringBuilder sb = new StringBuilder(18);
-        
-        // coordinate
+        StringBuilder sb = new StringBuilder();
         sb.append("Square("); sb.append(centerX); sb.append(", "); sb.append(centerY); sb.append(")");
-        // visibility
-        sb.append(" "); sb.append(isVisible()); sb.append(" visible.");
-        
         return sb.toString();
 	}
 }
