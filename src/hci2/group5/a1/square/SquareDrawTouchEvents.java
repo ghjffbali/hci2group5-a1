@@ -142,7 +142,6 @@ public class SquareDrawTouchEvents {
 		// draw 2 squares
 		if ( ! startSquare.isHit()) {
 			startSquare.drawAttention(canvas);
-			targetSquare.draw(canvas);
 		}
 		else {
 			startSquare.draw(canvas);
