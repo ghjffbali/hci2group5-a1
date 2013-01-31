@@ -64,7 +64,7 @@ public class DialogHandler {
 
 	public Dialog getDoneDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity)
-		.setTitle("Thank you")
+		.setTitle("Thank you, " + User.name + "!")
 		.setMessage("The experiment is done.")
 		.setPositiveButton("View Log", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
