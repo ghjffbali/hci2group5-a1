@@ -30,7 +30,7 @@ public class DataRecorder {
 	}
 
 	public void recordAvg(String record) {
-		System.out.println(record);
+		System.out.println("Average recorded: " + record);
 		avgData.add(record);
 	}
 
