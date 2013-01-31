@@ -65,13 +65,14 @@ public class DialogHandler {
 	public Dialog getDoneDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity)
 		.setTitle("Thank you")
+		.setMessage("The experiment is done.")
 		.setPositiveButton("View Log", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
 				mainActivity.showDialog(STATATISTICS_ID);
 			}
 		})
-		.setMessage("The experiment is done.");
+		.setCancelable(false);
 
 		return builder.create();
 	}
