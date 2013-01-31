@@ -8,7 +8,7 @@ public class SquareFactory {
 
 	public static Square getStartSquare(MainView mainView) {
 		
-		int length = SquareSize.MEDIUM.length;
+		int length = SquareSize.SMALL.length;
 		int centerX = mainView.getWidth() / 2;
 		int centerY = mainView.getHeight() - length;
 		
