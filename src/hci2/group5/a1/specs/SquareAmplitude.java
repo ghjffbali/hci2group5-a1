@@ -3,8 +3,8 @@ package hci2.group5.a1.specs;
 public enum SquareAmplitude {
 
 	SHORT(300),
-	MIDIUM(450),
-	LONG(600);
+	MIDIUM(500),
+	LONG(700);
 	
 	/**
 	 * In pixels
