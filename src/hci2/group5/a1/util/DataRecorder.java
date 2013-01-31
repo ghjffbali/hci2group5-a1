@@ -70,7 +70,7 @@ public class DataRecorder {
 		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, recipients);
 		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "COMP4020 - " + niceTitleOutput());
 		emailIntent.setType("plain/text");
-		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, niceContentOutput());
+		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "\n\n" + niceContentOutput()); // 2 lines used to type subjective observation
 		
 		activity.startActivity(emailIntent);
 	}
