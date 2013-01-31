@@ -10,14 +10,13 @@ import android.content.Intent;
 public class DataRecorder {
 	
 	private ArrayList<String> rawData;
-	private ArrayList<String> avgData;
+	private ArrayList<String> summaryData; // record average movement time and error rate
 	
-
 	private static DataRecorder instance = new DataRecorder();
 
 	private DataRecorder() {
 		rawData = new ArrayList<String>();
-		avgData = new ArrayList<String>();
+		summaryData = new ArrayList<String>();
 	}
 
 	public static DataRecorder getInstance() {
@@ -25,13 +24,13 @@ public class DataRecorder {
 	}
 
 	public void recordRaw(String record) {
-		System.out.println(record);
+		Log.d(record);
 		rawData.add(record);
 	}
 
-	public void recordAvg(String record) {
-		System.out.println("Average recorded: " + record);
-		avgData.add(record);
+	public void recordPerAWSummary(String record) {
+		Log.d("Summary: " + record);
+		summaryData.add(record);
 	}
 
 	public String niceTitleOutput() {
@@ -42,9 +41,9 @@ public class DataRecorder {
 
         StringBuilder sb = new StringBuilder(18);
 
-        sb.append("Average data:\n");
+        sb.append("Summary data:\n");
         
-        for (String string : avgData) {
+        for (String string : summaryData) {
 			sb.append(string);
 			sb.append("\n");
 		}
@@ -61,7 +60,7 @@ public class DataRecorder {
 	
 	public void clear() {
 		rawData.clear();
-		avgData.clear();
+		summaryData.clear();
 	}
 
 	public void email(Activity activity) {

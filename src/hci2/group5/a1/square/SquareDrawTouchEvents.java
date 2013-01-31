@@ -11,25 +11,25 @@ import android.graphics.Canvas;
 
 public class SquareDrawTouchEvents {
 
-	private static int MAX_TRIAL = 10;
-	
 	// UI
 	private Activity parentActivity;
 	private MainView mainView;
 	
 	// squares
-	private Square startSquare, targetSquare;
+	private HitableSquare startSquare, targetSquare;
 	
 	// factors
 	private SquareAmplitude currAmplitude;
 	private SquareSize currSize;
-	private int currTrial;
 
-	// when done, don't draw circles anymore
+	// when done, don't draw squares anymore
 	private boolean done;
 
-	// cal
-	private float sum;
+	// trial data
+	private static int MAX_TRIAL = 10;
+	private int currTrial;
+	private float hitTimeDiffSum;
+	private float targetErrorRateSum;
 	
 	public SquareDrawTouchEvents(Activity parentActivity, MainView mainView) {
 		this.parentActivity = parentActivity;
@@ -44,30 +44,34 @@ public class SquareDrawTouchEvents {
 
 	private void resetTrial() {
 		currTrial = 1;
-		sum = 0;
+		hitTimeDiffSum = 0;
+		targetErrorRateSum = 0;
 	}
 
 	public void touched(float x, float y) {
 		
-		if (done) {
-			return;
-		}
+		if (done) { return; }
 		
-		if ( ! startSquare.isHit() && startSquare.contains(x, y)) { // start square is hit
-			startSquare.setHit(true);
+		if (startSquare.notHit()) {
+			
+			if (startSquare.contains(x, y)) {
+				startSquare.setHit(true);
+			}
 		}
-		
-		if (startSquare.isHit() && targetSquare.contains(x, y)) { // target square is hit, after start square is hit
-			targetSquare.setHit(true);
-			
-			DataRecorder.getInstance().recordRaw((String.format("%s - (%s,%s) %d - %d", User.currFinger.toAbbr(), currAmplitude.toAbbr(), currSize.toAbbr(), currTrial, targetSquare.hitTimeDiff(startSquare) )));
-			
-			trialIncreaced();
-			
-			if ( ! done) {
-				// prepare for next trial
-				startSquare.setHit(false);
-				buildTargetSquare();
+		else {
+			if (targetSquare.contains(x, y)) {
+				targetSquare.setHit(true);
+				targetErrorRateSum += targetSquare.getErrorRate();
+				
+				DataRecorder.getInstance().recordRaw((String.format("%s - (%s,%s) %d - %d", User.currFinger.toAbbr(), currAmplitude.toAbbr(), currSize.toAbbr(), currTrial, targetSquare.hitTimeDiff(startSquare) )));
+				
+				trialIncreaced();
+				
+				if ( ! done) {
+					// prepare for next trial
+					startSquare.setHit(false);
+					buildTargetSquare();
+				}
 			}
 		}
 	}
@@ -75,10 +79,10 @@ public class SquareDrawTouchEvents {
 	private void trialIncreaced() {
 		
 		currTrial++;
-		sum += targetSquare.hitTimeDiff(startSquare);
+		hitTimeDiffSum += targetSquare.hitTimeDiff(startSquare);
 		
 		if (currTrial > MAX_TRIAL) {
-			DataRecorder.getInstance().recordAvg((String.format("%s - (%s,%s) %f", User.currFinger.toAbbr(), currAmplitude.toAbbr(), currSize.toAbbr(), sum / (float)MAX_TRIAL )));
+			DataRecorder.getInstance().recordPerAWSummary((String.format("%s - (%s,%s) %f, %f", User.currFinger.toAbbr(), currAmplitude.toAbbr(), currSize.toAbbr(), hitTimeDiffSum / (float)MAX_TRIAL, targetErrorRateSum / (float)MAX_TRIAL )));
 			
 			resetTrial();
 			
@@ -139,7 +143,7 @@ public class SquareDrawTouchEvents {
 			buildTargetSquare();
 		}
 		
-		// draw 2 squares
+		// draw
 		if ( ! startSquare.isHit()) {
 			startSquare.drawAttention(canvas);
 		}

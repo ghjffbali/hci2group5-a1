@@ -6,16 +6,16 @@ import hci2.group5.a1.util.RandomInt;
 
 public class SquareFactory {
 
-	public static Square getStartSquare(MainView mainView) {
+	public static HitableSquare getStartSquare(MainView mainView) {
 		
 		int length = SquareSize.SMALL.length;
 		int centerX = mainView.getWidth() / 2;
 		int centerY = mainView.getHeight() - length;
 		
-		return new Square(centerX, centerY, length);
+		return new HitableSquare(centerX, centerY, length);
 	}
 
-	public static Square getRandomTargetSquare(MainView mainView, Square startSquare, SquareAmplitude amplitude, SquareSize size) {
+	public static HitableSquare getRandomTargetSquare(MainView mainView, Square startSquare, SquareAmplitude amplitude, SquareSize size) {
 
 		int length = size.length;
 		int x, y;
@@ -32,6 +32,6 @@ public class SquareFactory {
 		y = (int) (y0 - Math.sqrt( a*a - (x-x0) * (x-x0) ));
 		
 		
-		return new Square(x, y, length);
+		return new HitableSquare(x, y, length);
 	}
 }

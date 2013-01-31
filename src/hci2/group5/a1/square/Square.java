@@ -22,17 +22,11 @@ public class Square {
 	private Rect rect;
 	private int centerX, centerY;
 
-	// hit
-	private boolean isHit;
-	private long hitTime;
-	
 	public Square(int centerX, int centerY, int length) {
 		this.centerX = centerX;
 		this.centerY = centerY;
 		
 		initRect(centerX, centerY, length);
-		
-		isHit = false;
 	}
 
 	private void initRect(int centerX, int centerY, int length) {
@@ -48,16 +42,6 @@ public class Square {
 	
 	public int getCenterX() { return centerX; }
 	public int getCenterY() { return centerY; }
-
-	public void setHit(boolean isHit) {
-		this.isHit = isHit;
-		hitTime = System.currentTimeMillis();
-	}
-	public boolean isHit() { return isHit; }
-	
-	public long hitTimeDiff(Square s2) {
-		return this.hitTime - s2.hitTime;
-	}
 
 	public void draw(Canvas canvas) {
 		canvas.drawRect(rect, painter);
