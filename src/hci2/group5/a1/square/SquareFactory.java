@@ -20,17 +20,21 @@ public class SquareFactory {
 		int length = size.length;
 		int x, y;
 		
-		
 		int halfLength = size.length / 2;
-		
-		int minX = halfLength;
+
 		int maxX = mainView.getWidth() - halfLength;
-		x = RandomInt.generateWithin(minX, maxX);
-		
-		int x0 = startSquare.getCenterX(), y0 = startSquare.getCenterY();
+		int maxY = mainView.getHeight() - halfLength;
+		int x0 = startSquare.getCenterX();
+		int y0 = startSquare.getCenterY();
 		int a = amplitude.value;
-		y = (int) (y0 - Math.sqrt( a*a - (x-x0) * (x-x0) ));
 		
+		x = RandomInt.generateWithin(halfLength, maxX);
+
+		y = (int) (y0 + Math.abs(x0 - x) - a);
+		while(y > maxY || y < halfLength) {
+			x = RandomInt.generateWithin(halfLength, maxX);
+			y = (int) (y0 + Math.abs(x0 - x) - a);
+		}
 		
 		return new HitableSquare(x, y, length);
 	}
