@@ -66,7 +66,7 @@ public class DataRecorder {
 	public void email(Activity activity) {
 		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 		
-		String recipients[] = { "\"Zhao Han\" <cx.chenghai@gmail.com>", "\"Shuo Dong\" <shuodo@gmail.com>" };
+		String recipients[] = { "\"Derek Martens\" <martensderek@gmail.com>" };
 		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, recipients);
 		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "COMP4020 - " + niceTitleOutput());
 		emailIntent.setType("plain/text");
