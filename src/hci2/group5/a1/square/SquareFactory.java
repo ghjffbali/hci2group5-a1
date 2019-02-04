@@ -27,12 +27,12 @@ public class SquareFactory {
         int x0 = startSquare.getCenterX();
         int y0 = startSquare.getCenterY();
         int a = amplitude.value;
-        int a2 = aa;
+        int a2 = a*a;
 
 
         x = RandomInt.generateWithin(halfLength, maxX);
         int deltaX = x0-x;
-        y = (int) (y0 - Math.sqrt(a2 - (deltaXdeltaX)));
+        y = (int) (y0 - Math.sqrt(a2 - (deltaX*deltaX)));
 
         while(y > maxY || y < halfLength) {
             x = RandomInt.generateWithin(halfLength, maxX);
